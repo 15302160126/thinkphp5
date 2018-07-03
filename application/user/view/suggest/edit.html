@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Motion-user-course</title>
+    <link type="text/css" href="__STATIC__/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__STATIC__/houtai/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__STATIC__/houtai/build/css/app.css" media="all">
+    <style>
+        .info-box {
+            height: 85px;
+            background-color: white;
+            background-color: #ecf0f5;
+        }
+        
+        .info-box .info-box-icon {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 2px;
+            display: block;
+            float: left;
+            height: 85px;
+            width: 85px;
+            text-align: center;
+            font-size: 45px;
+            line-height: 85px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-box .info-box-content {
+            padding: 5px 10px;
+            margin-left: 85px;
+        }
+        
+        .info-box .info-box-content .info-box-text {
+            display: block;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+        }
+        
+        .info-box .info-box-content .info-box-number {
+            display: block;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .major {
+            font-weight: 10px;
+            color: #01AAED;
+        }
+        
+        .main {
+            margin-top: 25px;
+        }
+        
+        .main .layui-row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin kit-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">Motion-User-course</div>
+            <div class="layui-logo kit-logo-mobile">K</div>
+            <ul class="layui-nav layui-layout-right kit-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                       {$user.username}
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('@user/user/detail',['id'=>$user.id])}">基本资料</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="{:url('login/logout')}"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black kit-side">
+            <div class="layui-side-scroll">
+                <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                    <li class="layui-nav-item">
+                        <a href="{:url('@user/course/index')}" data-url="/views/form.html" data-name="form" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 课程列表</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="{:url('@user/suggest/index')}" data-url="/views/form.html" data-name="form" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 学员建议</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="{:url('@user/teacher/index')}" data-url="/components/table/table.html" data-name="table" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 教师列表</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="{:url('@user/user/edit',['id'=>$user.id])}" data-url="/views/form.html" data-name="form" kit-loader><i class="fa fa-plug" aria-hidden="true"></i><span> 修改资料及选择课程</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+			<div class="table-responsive">
+				<form class="form-horizontal" method="post" action="{:url('suggest/update')}">
+                  <div class="form-group">
+                  <input type="hidden" name="id" value="{$suggest.id}">
+                    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+                    <div class="col-sm-2">
+                      <input type="text" class="form-control" name="title" id="inputTitle" value="{$suggest.title}" placeholder="标题">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">课程名</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" name="couse_id" id="inputCourseid" value="{$suggest.couse_id}" placeholder="课程名">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">授课教师</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" name="teacher_id" id="inputTeacherid" value="{$suggest.teacher_id}" placeholder="授课教师">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">建议</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" name="suggest" id="inputSuggest" value="{$suggest.suggest}" placeholder="建议">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default">更新</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="__STATIC__/layui/layui.js"></script>
+    <script src="__STATIC__/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="__STATIC__/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+        layui.use('jquery', function() {
+            var $ = layui.jquery;
+            $('#test').on('click', function() {
+                parent.message.show({
+                    skin: 'cyan'
+                });
+            });
+        });
+    </script>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            2018 &copy;
+            <a href="#">Motion.cn</a>
+
+        </div>
+    </div>
+
+    <script src="__STATIC__/houtai/layui/layui.js"></script>
+    <script>
+        var message;
+        layui.config({
+            base: '__STATIC__/houtai/build/js/'
+        }).use(['app', 'message'], function() {
+            var app = layui.app,
+                $ = layui.jquery,
+                layer = layui.layer;
+            //将message设置为全局以便子页面调用
+            message = layui.message;
+            //主入口
+            app.set({
+                type: 'iframe'
+            }).init();
+            $('#pay').on('click', function() {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    content: '<img src="__STATIC__/build/images/pay.png" />',
+                    area: ['500px', '250px'],
+                    shadeClose: true
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
